@@ -8,7 +8,8 @@ pub enum ParseError {
     InvalidRequest,
     InvalidEncoding,
     InvalidProtocol,
-    InvalidMethod
+    InvalidMethod,
+    InvalidPath
 }
 
 impl ParseError {
