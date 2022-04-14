@@ -15,10 +15,11 @@ pub enum ParseError {
 impl ParseError {
     fn message(&self) -> &str {
         match self {
-            Self::InvalidRequest  => "Invalid Request",
-            Self::InvalidEncoding => "Invalid Encoding",
-            Self::InvalidProtocol => "Invalid Protocol",
-            Self::InvalidMethod   => "Invalid Method"
+            Self::InvalidRequest    => "Invalid Request",
+            Self::InvalidEncoding   => "Invalid Encoding",
+            Self::InvalidProtocol   => "Invalid Protocol",
+            Self::InvalidMethod     => "Invalid Method",
+            Self::InvalidPath       => "Invalid Path"
         }
     }
 }
