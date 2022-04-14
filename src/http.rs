@@ -1,6 +1,9 @@
+mod request;
+
 use std::io::Read;
 use std::net::TcpListener;
 use threadpool::ThreadPool;
+use request::Request;
 
 pub struct Server {
     bind_addr: String,
@@ -28,7 +31,8 @@ impl Server {
     
                         match stream.read(&mut buffer) {
                             Ok(_) => {
-                                println!("{}", String::from_utf8_lossy(&buffer));
+                                //println!("{}", String::from_utf8_lossy(&buffer));
+                                let req = Request::try_from(&buffer[..]);
                             },
                             Err(e) => println!("Failed to read data: {}", e)
                         };
