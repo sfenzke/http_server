@@ -6,10 +6,30 @@ use error::ParseError;
 use method::Method;
 use std::str;
 
+/// A HTTP request
 pub struct Request {
+    /// The requested path
     path: String,
+    /// The query string 
     query_string: Option<String>,
+    /// the http method of the http request
     method: Method
+}
+
+impl Request {
+    /// Helper method to split path from query_string
+    /// # Arguments
+    /// * `path_query_string` - A string slice containning the path and query_string
+    /// 
+    fn split_path_query_string(path_query_string: &str) -> Result<(String, Option<String>), ParseError> {
+        let splitted_string = path_query_string.split("?").collect::<Vec<&str>>();
+
+        match splitted_string.len() {
+            1 => Ok((splitted_string[0].to_string(), None)),
+            2 => Ok((splitted_string[0].to_string(), Some(splitted_string[1].to_string()))),
+            _ => Err(ParseError::InvalidPath)
+        }
+    }
 }
 
 impl TryFrom<&[u8]> for Request {
@@ -30,11 +50,16 @@ impl TryFrom<&[u8]> for Request {
         // if there are not exactly 3 elements in the vector containing
         // the elements of the first line, the request is invalid
         match first_line.len() {
-            3 => Ok(Request {
+            3 => { 
+                // split path from query string
+                let splitted_string = Request::split_path_query_string(first_line[1])?;
+
+                Ok(Request {
                     method: Method::try_from(first_line[0])?,
-                    path: first_line[1].to_string(),
-                    query_string: None
-            }),
+                    path: splitted_string.0,
+                    query_string: splitted_string.1
+                })
+            },
             _ => Err(ParseError::InvalidRequest)
         }
     }   
