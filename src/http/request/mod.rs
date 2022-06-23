@@ -10,11 +10,11 @@ use std::fmt::{Display, Formatter, Result as FmtResult};
 /// A HTTP request
 pub struct Request {
     /// The requested path
-    path: String,
+    pub(crate) path: String,
     /// The query string 
-    query_string: Option<String>,
+    pub(crate) query_string: Option<String>,
     /// the http method of the http request
-    method: Method
+    pub(crate) method: Method
 }
 
 impl Request {

@@ -1,15 +1,20 @@
 use std::io::Read;
 use std::net::TcpListener;
+use crate::file::provider::{FileProvider};
+
+use super::RequestHandler;
 use super::request::Request;
 
-pub struct Server {
+pub struct Server<T: FileProvider> {
     bind_addr: String,
+    request_handler: RequestHandler<T>
 }
 
-impl Server {
-    pub fn new(bind_addr: &str) -> Self {
+impl<T:FileProvider> Server<T> {
+    pub fn new(bind_addr: &str, file_provider:T) -> Self {
         Self {
             bind_addr: String::from(bind_addr),
+            request_handler: RequestHandler::new(file_provider)
         }
     }
 
@@ -29,7 +34,7 @@ impl Server {
                             match Request::try_from(&buffer[..]) {
                                 Ok(request) => {
                                     // handle request here
-                                    println!("{}", request);
+                                    self.request_handler.handle(request);
                                 }
                                 Err(e) => {
                                     // Some kind of error happened and needs to be handled here
