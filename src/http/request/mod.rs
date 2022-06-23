@@ -63,18 +63,16 @@ impl TryFrom<&[u8]> for Request {
         
         // if there are not exactly 3 elements in the vector containing
         // the elements of the first line, the request is invalid
-        match first_line.len() {
-            3 => { 
-                // split path from query string
-                let splitted_string = Request::split_path_query_string(first_line[1])?;
+        if first_line.len() != 3 { return Err(ParseError::InvalidRequest); }
+        // we only support HTTP/1.1 at the moment
+        if first_line[2] != "HTTP/1.1" { return Err(ParseError::InvalidProtocol); }
+        // split path from query string
+        let splitted_string = Request::split_path_query_string(first_line[1])?;
 
-                Ok(Request {
-                    method: Method::try_from(first_line[0])?,
-                    path: splitted_string.0,
-                    query_string: splitted_string.1
-                })
-            },
-            _ => Err(ParseError::InvalidRequest)
-        }
+        Ok(Request {
+            method: Method::try_from(first_line[0])?,
+            path: splitted_string.0,
+            query_string: splitted_string.1
+        })
     }   
 }
