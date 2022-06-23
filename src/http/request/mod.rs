@@ -22,7 +22,7 @@ impl Request {
     /// * `path_query_string` - A string slice containning the path and query_string
     /// 
     fn split_path_query_string(path_query_string: &str) -> Result<(String, Option<String>), ParseError> {
-        let splitted_string = path_query_string.split("?").collect::<Vec<&str>>();
+        let splitted_string:Vec<&str> = path_query_string.split("?").collect();
 
         match splitted_string.len() {
             1 => Ok((splitted_string[0].to_string(), None)),
