@@ -1,4 +1,4 @@
-use std::fmt::{Display, Debug, Result, Formatter};
+use std::fmt::{Display, Debug, Formatter, Result as FmtResult};
 use std::error::Error;
 use std::str::Utf8Error;
 use std::convert::From;
@@ -27,13 +27,13 @@ impl ParseError {
 impl Error for ParseError {}
 
 impl Display for ParseError {
-    fn fmt(&self, f: &mut Formatter) -> Result {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
         write!(f, "{}", self.message())
     }
 }
 
 impl Debug for ParseError {
-    fn fmt(&self, f: &mut Formatter) -> Result {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
         write!(f, "{}", self.message())
     }
 }
