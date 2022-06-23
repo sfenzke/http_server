@@ -2,13 +2,13 @@ use std::error::Error;
 use std::fmt::{Display, Debug, Formatter, Result as FmtResult};
 
 pub enum ResponseError {
-    FILE_NOT_FOUND
+    FileNotFound
 }
 
 impl ResponseError {
     fn message(&self) -> &str{
-        match *self {
-            FILE_NOT_FOUND => "File net found"
+        match self {
+            ResponseError::FileNotFound => "File not found"
         }
     }
 }
