@@ -9,9 +9,9 @@ pub struct Server {
 }
 
 impl Server {
-    pub fn new(bind_addr: String, num_threads: usize) -> Self {
+    pub fn new(bind_addr: &str, num_threads: usize) -> Self {
         Self {
-            bind_addr,
+            bind_addr: String::from(bind_addr),
             threadpool: ThreadPool::new(num_threads)
         }
     }
