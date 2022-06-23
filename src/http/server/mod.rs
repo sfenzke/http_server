@@ -1,9 +1,7 @@
-mod request;
-
 use std::io::Read;
 use std::net::TcpListener;
 use threadpool::ThreadPool;
-use request::Request;
+use super::request::Request;
 
 pub struct Server {
     bind_addr: String,
