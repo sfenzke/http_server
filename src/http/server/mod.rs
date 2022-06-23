@@ -30,7 +30,16 @@ impl Server {
                         match stream.read(&mut buffer) {
                             Ok(_) => {
                                 //println!("{}", String::from_utf8_lossy(&buffer));
-                                let req = Request::try_from(&buffer[..]);
+                                match Request::try_from(&buffer[..]) {
+                                    Ok(request) => {
+                                        // handle request here
+                                        println!("{}", request);
+                                    }
+                                    Err(e) => {
+                                        // Some kind of error happened and needs to be handled here
+                                        println!("Damn! {}", e);
+                                    }
+                                }
                             },
                             Err(e) => println!("Failed to read data: {}", e)
                         };
