@@ -5,6 +5,7 @@ use std::convert::TryFrom;
 use error::ParseError;
 use method::Method;
 use std::str;
+use std::fmt::{Display, Formatter, Result as FmtResult};
 
 /// A HTTP request
 pub struct Request {
@@ -28,6 +29,19 @@ impl Request {
             1 => Ok((splitted_string[0].to_string(), None)),
             2 => Ok((splitted_string[0].to_string(), Some(splitted_string[1].to_string()))),
             _ => Err(ParseError::InvalidPath)
+        }
+    }
+}
+
+impl Display for Request {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        if let Some(qs) = &self.query_string {
+            write!(f, "path: {}, query_string: {}, method: {}", 
+                self.path, qs, self.method)
+        }
+        else {
+            write!(f, "path: {}, method: {}", 
+                self.path, self.method)
         }
     }
 }

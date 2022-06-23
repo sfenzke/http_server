@@ -33,7 +33,23 @@ impl TryFrom<&str> for Method {
     }
 }
 
- pub struct MethodError {
+impl Display for Method {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult{
+        write!(f, "{}", match *self {
+            Method::GET => "GET",
+            Method::POST => "POST",
+            Method::PUT => "PUT",
+            Method::HEAD => "HEAD",
+            Method::DELETE => "DELETE",
+            Method::CONNECT => "CONNECT",
+            Method::OPTIONS => "OPTIONS",
+            Method::TRACE => "TRACE",
+            Method::PATCH => "PATCH",
+        })
+    }
+}
+
+pub struct MethodError {
     message: String
 
 }
