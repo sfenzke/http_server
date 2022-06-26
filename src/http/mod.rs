@@ -1,18 +1,8 @@
-mod request;
-mod response;
-pub mod server;
+/*!
+ * This module contains everything which is needed to speak HTTP/1.1 with a client.
+ */
+pub mod request;
+pub mod request_handler;
+pub mod response;
 
-use crate::file::provider::FileProvider;
-
-struct RequestHandler<T: FileProvider> {
-    file_provider: T
-}
-
-impl<T:FileProvider> RequestHandler<T> {
-    /// Creates a new [`RequestHandler<T>`].
-    pub fn new(file_provider: T) -> Self {
-        RequestHandler { 
-            file_provider,
-        }
-    }
-}
+pub use crate::http::request_handler::RequestHandler;
