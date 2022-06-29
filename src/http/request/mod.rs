@@ -1,10 +1,8 @@
 mod error;
-mod method;
-use std::convert::TryFrom;
 use error::ParseError;
-use method::Method;
-use std::str;
-use std::fmt::{Display, Formatter, Result as FmtResult};
+use std::{fmt::{Display, Formatter, Result as FmtResult}, str, convert::TryFrom};
+use crate::http::method::Method;
+
 
 
 /// A HTTP request

@@ -1,8 +1,5 @@
-use std::fmt::{Display, Debug, Formatter, Result as FmtResult};
-use std::error::Error;
-use std::str::Utf8Error;
-use std::convert::From;
-use super::{method::MethodError};
+use std::{convert::From, str::Utf8Error, error::Error, fmt::{Display, Debug, Formatter, Result as FmtResult}};
+use crate::http::method::MethodError;
 
 pub enum ParseError {
     Request,
