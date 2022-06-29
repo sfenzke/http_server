@@ -2,24 +2,24 @@ use std::fmt::{Display, Debug, Formatter, Result as FmtResult};
 use std::error::Error;
 use std::str::Utf8Error;
 use std::convert::From;
-use super::method::MethodError;
+use super::{method::MethodError};
 
 pub enum ParseError {
-    InvalidRequest,
-    InvalidEncoding,
-    InvalidProtocol,
-    InvalidMethod,
-    InvalidPath
+    Request,
+    Encoding,
+    Protocol,
+    Method,
+    Path
 }
 
 impl ParseError {
     fn message(&self) -> &str {
         match self {
-            Self::InvalidRequest    => "Invalid Request",
-            Self::InvalidEncoding   => "Invalid Encoding",
-            Self::InvalidProtocol   => "Invalid Protocol",
-            Self::InvalidMethod     => "Invalid Method",
-            Self::InvalidPath       => "Invalid Path"
+            Self::Request    => "Invalid Request",
+            Self::Encoding   => "Invalid Encoding",
+            Self::Protocol   => "Invalid Protocol",
+            Self::Method     => "Invalid Method",
+            Self::Path       => "Invalid Path"
         }
     }
 }
@@ -40,12 +40,12 @@ impl Debug for ParseError {
 
 impl From<Utf8Error> for ParseError {
     fn from(_: Utf8Error) -> Self {
-        Self::InvalidEncoding
+        Self::Encoding
     }
 }
 
 impl From<MethodError> for ParseError {
     fn from(_: MethodError) -> Self {
-        Self::InvalidMethod
+        Self::Method
     }
 }

@@ -1,3 +1,5 @@
-mod response;
+mod error;
 
-pub use crate::http::response::response::Response;
+pub(crate) use error::ResponseError;
+
+pub struct Response {}

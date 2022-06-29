@@ -9,7 +9,7 @@ impl DummyProvider {
 }
 
 impl FileProvider for DummyProvider {
-    fn provide_file(&self, path: &String) -> Vec<u8> {
+    fn provide_file(&self, path: &str) -> Vec<u8> {
         println!("{}", path);
         vec![0; 10]
     }

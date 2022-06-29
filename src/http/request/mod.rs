@@ -1,11 +1,11 @@
 mod error;
 mod method;
-
 use std::convert::TryFrom;
 use error::ParseError;
 use method::Method;
 use std::str;
 use std::fmt::{Display, Formatter, Result as FmtResult};
+
 
 /// A HTTP request
 pub struct Request {
@@ -23,12 +23,12 @@ impl Request {
     /// * `path_query_string` - A string slice containning the path and query_string
     /// 
     fn split_path_query_string(path_query_string: &str) -> Result<(String, Option<String>), ParseError> {
-        let splitted_string:Vec<&str> = path_query_string.split("?").collect();
+        let splitted_string:Vec<&str> = path_query_string.split('?').collect();
 
         match splitted_string.len() {
             1 => Ok((splitted_string[0].to_string(), None)),
             2 => Ok((splitted_string[0].to_string(), Some(splitted_string[1].to_string()))),
-            _ => Err(ParseError::InvalidPath)
+            _ => Err(ParseError::Path)
         }
     }
 }
@@ -57,15 +57,15 @@ impl TryFrom<&[u8]> for Request {
         // get the first line from the request header and split in into segments
         // it should look like: GET /?id=0 HTTP/1.1
         let first_line = (req_line_iterator.next().
-                            ok_or(ParseError::InvalidRequest)?).
+                            ok_or(ParseError::Request)?).
                             split_ascii_whitespace().
                             collect::<Vec<&str>>();
         
         // if there are not exactly 3 elements in the vector containing
         // the elements of the first line, the request is invalid
-        if first_line.len() != 3 { return Err(ParseError::InvalidRequest); }
+        if first_line.len() != 3 { return Err(ParseError::Request); }
         // we only support HTTP/1.1 at the moment
-        if first_line[2] != "HTTP/1.1" { return Err(ParseError::InvalidProtocol); }
+        if first_line[2] != "HTTP/1.1" { return Err(ParseError::Protocol); }
         // split path from query string
         let splitted_string = Request::split_path_query_string(first_line[1])?;
 
