@@ -1,11 +1,13 @@
 mod error;
+mod tests;
 use error::ParseError;
-use std::{fmt::{Display, Formatter, Result as FmtResult}, str, convert::TryFrom};
+use std::{fmt::{Display, Debug, Formatter, Result as FmtResult}, str, convert::TryFrom};
 use crate::http::method::Method;
 
 
 
 /// A HTTP request
+#[derive(PartialEq, Eq)]
 pub struct Request {
     /// The requested path
     pub path: String,
@@ -32,6 +34,19 @@ impl Request {
 }
 
 impl Display for Request {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        if let Some(qs) = &self.query_string {
+            write!(f, "path: {}, query_string: {}, method: {}", 
+                self.path, qs, self.method)
+        }
+        else {
+            write!(f, "path: {}, method: {}", 
+                self.path, self.method)
+        }
+    }
+}
+
+impl Debug for Request {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         if let Some(qs) = &self.query_string {
             write!(f, "path: {}, query_string: {}, method: {}", 

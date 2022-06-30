@@ -6,7 +6,7 @@ pub(crate) use error::MethodError;
 use std::convert::TryFrom;
 use std::fmt::{Display, Debug, Result as FmtResult, Formatter};
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Eq)]
 pub enum Method {
     Get,
     Post,
