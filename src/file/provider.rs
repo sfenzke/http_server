@@ -1,7 +1,5 @@
 pub mod dummy_provider;
+pub mod file_provider;
 
-pub trait FileProvider {
-    fn provide_file(&self, path: &str) -> Vec<u8>;
-}
-
-pub use crate::file::provider::dummy_provider::DummyProvider;
+pub use file_provider::FileProvider;
+pub use dummy_provider::DummyProvider;

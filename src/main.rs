@@ -4,8 +4,8 @@ mod http;
 mod file;
 mod server;
 
-use crate::file::provider::DummyProvider;
-use crate::server::Server;
+use file::provider::DummyProvider;
+use server::Server;
 
 /// This is the main function which creates the Server and starts the main loop on it.
 fn main() {

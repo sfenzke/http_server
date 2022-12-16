@@ -1,4 +1,4 @@
-use super::FileProvider;
+use super::file_provider::FileProvider;
 
 pub struct DummyProvider {}
 

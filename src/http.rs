@@ -6,4 +6,4 @@ pub mod request;
 pub mod response;
 pub mod request_handler;
 
-pub use crate::http::request_handler::RequestHandler;
+pub use request_handler::RequestHandler;
