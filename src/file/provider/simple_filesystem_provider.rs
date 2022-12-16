@@ -1,5 +1,5 @@
 use super::file_provider::{FileProvider};
-use super::error::FileNotFoundError;
+use super::error::FileProviderError;
 use std::fs;
 
 pub struct SimpleFilesystemProvider {
@@ -15,7 +15,7 @@ impl SimpleFilesystemProvider {
 }
 
 impl FileProvider for SimpleFilesystemProvider {
-    fn provide_file(&self, path: &str) -> Result<Vec<u8>, FileNotFoundError> {
+    fn provide_file(&self, path: &str) -> Result<Vec<u8>, FileProviderError> {
         Ok(vec![0,10])
     }
 }

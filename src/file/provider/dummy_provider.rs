@@ -1,5 +1,5 @@
 use super::file_provider::{FileProvider};
-use super::error::FileNotFoundError;
+use super::error::FileProviderError;
 
 pub struct DummyProvider {}
 
@@ -10,7 +10,7 @@ impl DummyProvider {
 }
 
 impl FileProvider for DummyProvider {
-    fn provide_file(&self, path: &str) -> Result<Vec<u8>, FileNotFoundError> {
+    fn provide_file(&self, path: &str) -> Result<Vec<u8>, FileProviderError> {
         println!("{}", path);
         Ok(vec![0; 10])
     }

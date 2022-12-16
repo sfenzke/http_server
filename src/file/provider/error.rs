@@ -1,3 +1,3 @@
-pub mod file_not_found_error;
+pub mod file_provider_error;
 
-pub use file_not_found_error::FileNotFoundError;
+pub use file_provider_error::FileProviderError;
