@@ -9,13 +9,15 @@ pub struct RequestHandler<T: FileProvider> {
 impl<T:FileProvider> RequestHandler<T> {
     /// Creates a new [`RequestHandler<T>`].
     pub fn new(file_provider: T) -> Self {
-        RequestHandler { 
+        Self {
             file_provider,
         }
     }
 
     pub fn handle_request(&self, request:&Request) -> Response {
-        self.file_provider.provide_file(&request.path);
-        Response {  }
-    } 
+        match self.file_provider.provide_file(&request.path) {
+            Ok(data) => Response { },
+            Err(e) => Response { }
+        }
+    }
 }
