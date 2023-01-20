@@ -4,7 +4,7 @@ mod http;
 mod file;
 mod server;
 
-use file::provider::{DummyProvider, SimpleFilesystemProvider};
+use file::provider::{SimpleFilesystemProvider};
 use server::Server;
 
 /// This is the main function which creates the Server and starts the main loop on it.

@@ -2,15 +2,15 @@ use std::{error::Error, fmt::Display};
 
 #[derive(Debug)]
 pub enum ErrorType {
-    FILE_NOT_FOUND,
-    READ_ERROR
+    FileNotFound,
+    ReadError
 }
 
 impl Display for ErrorType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-           Self::FILE_NOT_FOUND => { write!(f, "File bot found")},
-           Self::READ_ERROR => { write!(f, "Read error")}
+           Self::FileNotFound => { write!(f, "File bot found")},
+           Self::ReadError => { write!(f, "Read error")}
         }
     }
 }

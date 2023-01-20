@@ -26,9 +26,9 @@ impl FileProvider for SimpleFilesystemProvider {
         match read(path) {
             Ok(data) => Ok(data),
             Err(e) => match e.kind() {
-                std::io::ErrorKind::NotFound => Err(FileProviderError::new(format!("file {} not found", file), ErrorType::FILE_NOT_FOUND)),
-                std::io::ErrorKind::PermissionDenied => Err(FileProviderError::new(format!("missing read permission for {}", file), ErrorType::READ_ERROR))
-                _ => Err(FileProviderError::new(format!("unknown IO Error"), ErrorType::READ_ERROR)),
+                std::io::ErrorKind::NotFound => Err(FileProviderError::new(format!("file {} not found", file), ErrorType::FileNotFound)),
+                std::io::ErrorKind::PermissionDenied => Err(FileProviderError::new(format!("missing read permission for {}", file), ErrorType::ReadError)),
+                _ => Err(FileProviderError::new(format!("unknown IO Error"), ErrorType::ReadError)),
             }
         }
     }

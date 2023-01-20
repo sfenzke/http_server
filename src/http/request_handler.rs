@@ -1,5 +1,3 @@
-use std::path::Path;
-
 use crate::file::provider::FileProvider;
 
 use super::{response::Response, request::Request};
